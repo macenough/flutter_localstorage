@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_pref_demo/ui/splash_screen.dart';
+import 'package:shared_pref_demo/utils/shared_pref_util.dart';
 
-void main() {
+ main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefsUtils().init();
   runApp(const MyApp());
 }
 

@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:shared_pref_demo/utils/shared_pref_util.dart';
 
 import 'component/inputfield_widget.dart';
 import 'home_screen.dart';
@@ -13,6 +15,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
+ late TextEditingController? userNameController;
+ late TextEditingController? passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    userNameController = TextEditingController();
+    passwordController = TextEditingController();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,27 +62,36 @@ class LoginScreenState extends State<LoginScreen> {
                             child: Text("Login Screen"))),
                     Form(
                       child: InputField(
-                          //Calling inputField  class
-
-                          const Icon(
-                            Icons.person,
-                            color: Colors.white,
-                          ),
-                          "Username"),
+                        //Calling inputField  class
+                        fieldIcon: const Icon(
+                          Icons.person,
+                          color: Colors.white,
+                        ),
+                        hintText: "Username",
+                        edittextController: userNameController,
+                      ),
                     ),
                     Form(
                       child: InputField(
-                          const Icon(
-                            Icons.lock,
-                            color: Colors.white,
-                          ),
-                          "Password"),
+                        fieldIcon: const Icon(
+                          Icons.lock,
+                          color: Colors.white,
+                        ),
+                        hintText: "Password",
+                        edittextController: passwordController,
+                      ),
                     ),
                     Container(
                       width: 150,
                       child: RaisedButton(
                         //Raised Button
                         onPressed: () {
+                          SharedPrefsUtils()
+                              .setUname(userNameController!.text.toString());
+                          SharedPrefsUtils()
+                              .setPass(passwordController!.text.toString());
+                          SharedPrefsUtils().setIsLogin(true);
+
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => HomeScreen()));
                         },

@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_pref_demo/ui/home_screen.dart';
 import 'package:shared_pref_demo/ui/login_screen.dart';
+import 'package:shared_pref_demo/utils/shared_pref_util.dart';
 
 class SplashScreen extends StatefulWidget {
   static String tag = 'splashScreen';
@@ -31,7 +33,7 @@ class SplashScreenState extends State<SplashScreen> {
 
   onDoneLoading() async {
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => (LoginScreen())));
+        MaterialPageRoute(builder: (context) => (SharedPrefsUtils().getIsLogin ? const HomeScreen() : const LoginScreen())));
   }
 
   @override

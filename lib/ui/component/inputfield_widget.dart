@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 
-class InputField extends StatefulWidget {
-  Icon fieldIcon;
-  String hintText;
+class InputField extends StatelessWidget {
 
-  InputField(this.fieldIcon, this.hintText, {Key? key}) : super(key: key);
+  Icon? fieldIcon;
+  String? hintText;
+  TextEditingController? edittextController;
 
-  @override
-  State<InputField> createState() => _InputFieldState();
-}
-
-class _InputFieldState extends State<InputField> {
-  final _text = TextEditingController();
-  final bool _validate = false;
+  InputField({this.fieldIcon, this.hintText,this.edittextController, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +21,7 @@ class _InputFieldState extends State<InputField> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: widget.fieldIcon,
+              child:fieldIcon,
             ),
             Container(
               decoration: const BoxDecoration(
@@ -43,12 +37,11 @@ class _InputFieldState extends State<InputField> {
                 child: Form(
                   child: TextField(
                     //TestField
-                    controller: _text,
+                    controller: edittextController,
 
                     decoration: InputDecoration(
-                      errorText: _validate ? "Username" : null,
                       border: InputBorder.none,
-                      hintText: widget.hintText,
+                      hintText: hintText,
                       fillColor: Colors.white,
                       filled: true,
                     ),
